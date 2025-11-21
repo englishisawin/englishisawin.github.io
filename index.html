@@ -1,43 +1,147 @@
-<div style="font-family: sans-serif; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-  
-  <h3 style="color:#1a73e8; margin-top:0;">পেমেন্ট ভেরিফিকেশন</h3>
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>মাস্টার ইংলিশ — পেমেন্ট ভেরিফিকেশন</title>
+  <style>
+    /* Minimal, professional (Harvard-grade) styling */
+    :root{--accent:#1a73e8;--bg:#f7f9fc;--card:#ffffff;--muted:#6b7280}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    body{background:linear-gradient(180deg,#fbfdff 0%,var(--bg) 100%);color:#111}
+    .container{max-width:980px;margin:40px auto;padding:28px}
+    header.hero{background:var(--card);border-radius:12px;padding:34px;box-shadow:0 8px 30px rgba(15,23,42,0.06);display:flex;gap:28px;align-items:center}
+    .hero .cover{width:180px;height:240px;border-radius:10px;object-fit:cover;background:linear-gradient(90deg,#e5eefc,#fef9e7);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
+    .hero h1{margin:0;font-size:28px;line-height:1.05}
+    .hero p{margin:12px 0 0;color:var(--muted);max-width:640px}
 
-  <form id="silexForm" action="https://docs.google.com/forms/d/1XqQ_FHTlUQY7BvfengEpuzMZGTrJbf5oPjxJDTOdyZ8/formResponse" method="POST" target="hidden_iframe" onsubmit="document.getElementById('submitting-msg').style.display='block'">
-    
-    <label style="display:block; margin-top:10px; font-weight:bold;">আপনার নাম</label>
-    <input name="entry.1009250005" type="text" placeholder="আপনার পুরো নাম" required style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:5px;">
+    .two-col{display:grid;grid-template-columns:1fr 420px;gap:26px;margin-top:28px}
+    .card{background:var(--card);border-radius:12px;padding:22px;box-shadow:0 6px 20px rgba(15,23,42,0.05)}
+    h2{margin:0 0 12px 0;color:var(--accent)}
+    ul.points{padding-left:20px;color:#111}
+    ul.points li{margin-bottom:10px}
 
-    <label style="display:block; margin-top:10px; font-weight:bold;">পেমেন্ট মেথড</label>
-    <select name="entry.1510770876" style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:5px;">
-        <option value="bKash">বিকাশ (bKash)</option>
-        <option value="Nagad">নগদ (Nagad)</option>
-        <option value="Rocket">রকেট (Rocket)</option>
-    </select>
+    /* Form styles */
+    label{display:block;font-size:13px;margin-bottom:6px;color:#222}
+    input[type=text],input[type=email],select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #e6e9ef;font-size:15px}
+    .radio-row{display:flex;gap:12px;align-items:center}
+    .radio-row label{display:flex;align-items:center;gap:8px;cursor:pointer}
+    .muted{font-size:13px;color:var(--muted)}
+    button.cta{background:var(--accent);color:#fff;border:none;padding:12px 18px;border-radius:10px;font-weight:600;font-size:15px;cursor:pointer}
+    .small{font-size:13px}
 
-    <label style="display:block; margin-top:10px; font-weight:bold;">মোবাইল নম্বর</label>
-    <input name="entry.184309411" type="text" placeholder="01XXXXXXXXX" required style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:5px;">
+    /* thank you overlay */
+    #thankyou{display:none;margin-top:18px;padding:14px;border-radius:10px;background:#f0fdf8;color:#065f46;border:1px solid rgba(6,95,70,0.08)}
 
-    <label style="display:block; margin-top:10px; font-weight:bold;">ট্রানজেকশন আইডি (TrxID)</label>
-    <input name="entry.410185239" type="text" placeholder="TX123456789" required style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:5px;">
+    footer{margin-top:34px;text-align:center;color:var(--muted);font-size:13px}
 
-    <label style="display:block; margin-top:10px; font-weight:bold;">ই-মেইল</label>
-    <input name="entry.1599319325" type="email" placeholder="you@example.com" required style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:5px;">
+    @media (max-width:900px){.two-col{grid-template-columns:1fr;}.hero{flex-direction:column;align-items:flex-start}.hero .cover{width:140px;height:188px}}
+  </style>
+</head>
+<body>
+  <div class="container">
 
-    <button type="submit" style="width:100%; background:#1a73e8; color:white; border:none; padding:12px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold;">জমা দিন</button>
-    
-    <div id="submitting-msg" style="display:none; text-align:center; margin-top:10px; color:#666;">যাচাই করা হচ্ছে...</div>
-  </form>
+    <header class="hero">
+      <div style="flex:1">
+        <h1>Master English — বাংলাভাষীদের জন্য ইংরেজি শেখার সেরা গাইড</h1>
+        <p>বেসিক থেকে ইংরেজিতে দক্ষ হওয়ার জন্য একটি কার্যকরী ও গোছানো ই-বুক। এতে আছে রিয়েল-লাইফ কনভারসেশন প্র্যাকটিস, এক্সাম টিপস এবং অনুশীলনী। দ্রুত ফলাফল। নির্ভরযোগ্য গাইড।</p>
+        <p class="muted" style="margin-top:14px">মূল্য: <strong>৳ 199</strong> — বিকাশ, নগদ বা রকেটে পেমেন্ট করুন। পেমেন্ট সম্পন্ন হলে নিচের ফর্মটি পূরণ করুন, ই-মেইলে বইটি পাঠিয়ে দেওয়া হবে।</p>
+      </div>
+      <div class="cover">eBook
+        <div style="font-size:13px;color:var(--muted);margin-top:6px;">Cover</div>
+      </div>
+    </header>
 
-  <div id="thankyou-msg" style="display:none; background:#e6fffa; color:#047857; padding:15px; margin-top:10px; border-radius:5px; text-align:center;">
-    ধন্যবাদ! তথ্য জমা হয়েছে।
+    <div class="two-col">
+      <section class="card">
+        <h2>আপনি যা যা পাচ্ছেন</h2>
+        <ul class="points">
+          <li>বাংলা ব্যাখ্যাসহ ধাপে ধাপে গ্রামার শেখার গাইড।</li>
+          <li>ইন্টারভিউ এবং স্পোকেন ইংলিশে ভালো করার সেরা কৌশল।</li>
+          <li>প্রতিদিনের প্র্যাকটিস লেসন — সাথে ২১ দিনের স্টাডি প্ল্যান।</li>
+          <li>ইমেইল, সিভি এবং ফরমাল লেটার লেখার স্মার্ট টেমপ্লেট।</li>
+        </ul>
+        <div style="margin-top:18px">
+          <h2 style="margin-bottom:10px">পেমেন্ট ভেরিফিকেশন যেভাবে কাজ করে</h2>
+          <p class="small muted">আপনার পছন্দের মোবাইল ওয়ালেট (বিকাশ/নগদ/রকেট) ব্যবহার করে পেমেন্ট করুন। এরপর যে নম্বর থেকে টাকা পাঠিয়েছেন এবং ট্রানজেকশন আইডি (TrxID) দিয়ে নিচের ফর্মটি পূরণ করুন। আমরা ভেরিফাই করে আপনার ইমেইলে বইটি পাঠিয়ে দেব।</p>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2>পেমেন্ট ভেরিফিকেশন</h2>
+        <p class="muted small">সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন।</p>
+
+        <form id="customForm" action="https://docs.google.com/forms/d/1XqQ_FHTlUQY7BvfengEpuzMZGTrJbf5oPjxJDTOdyZ8/formResponse" method="POST" target="hidden_iframe" onsubmit="showSubmitting()" class="small">
+
+          <label for="name">আপনার নাম</label>
+          <input id="name" name="entry.1009250005" type="text" placeholder="আপনার পুরো নাম লিখুন" required>
+
+          <label style="margin-top:12px">পেমেন্ট মেথড</label>
+          <div class="radio-row" style="margin-bottom:10px">
+            <label><input type="radio" name="entry.1510770876" value="bKash" required> বিকাশ (bKash)</label>
+            <label><input type="radio" name="entry.1510770876" value="Nagad"> নগদ (Nagad)</label>
+            <label><input type="radio" name="entry.1510770876" value="Rocket"> রকেট (Rocket)</label>
+          </div>
+
+          <label for="mobile">যে নম্বর থেকে টাকা পাঠিয়েছেন</label>
+          <input id="mobile" name="entry.184309411" type="text" placeholder="01XXXXXXXXX" required>
+
+          <label for="tx">ট্রানজেকশন আইডি (TrxID)</label>
+          <input id="tx" name="entry.410185239" type="text" placeholder="যেমন: TX123456789" required>
+
+          <label for="email" style="margin-top:12px">ই-মেইল (বইটি যেখানে পাঠানো হবে)</label>
+          <input id="email" name="entry.1599319325" type="email" placeholder="you@example.com" required>
+
+          <div style="display:flex;gap:10px;margin-top:14px;align-items:center">
+            <button class="cta" type="submit">ভেরিফিকেশনের জন্য জমা দিন</button>
+            <div id="submitting" style="display:none;font-size:13px;color:var(--muted)">যাচাই করা হচ্ছে...</div>
+          </div>
+
+          <div id="thankyou" role="status">ধন্যবাদ! আপনার তথ্য জমা হয়েছে। আমরা পেমেন্ট ভেরিফাই করে ২৪ ঘণ্টার মধ্যে ইমেইলে বইটি পাঠিয়ে দেব।</div>
+
+          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="iframeLoaded()"></iframe>
+
+          <noscript>
+            <p class="muted">এই ফর্মটি কাজ করার জন্য ব্রাউজারের জাভাস্ক্রিপ্ট চালু থাকা প্রয়োজন।</p>
+          </noscript>
+        </form>
+
+        <hr style="margin:18px 0;border:none;border-top:1px solid #eef2ff">
+        <div class="muted small">সাহায্য প্রয়োজন? আপনার ট্রানজেকশন আইডি সহ মেইল করুন: <a href="mailto:support@example.com">support@example.com</a></div>
+      </aside>
+    </div>
+
+    <footer>
+      &copy; ২০২৫ মাস্টার ইংলিশ। ফলাফলের নিশ্চয়তায় তৈরি।
+    </footer>
   </div>
 
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){document.getElementById('thankyou-msg').style.display='block';document.getElementById('silexForm').style.display='none';}"></iframe>
-</div>
+  <script>
+    // ---- Helper UI logic ----
+    function showSubmitting(){
+      document.getElementById('submitting').style.display = 'inline-block';
+      // make sure thank you is hidden until iframe confirms
+      document.getElementById('thankyou').style.display = 'none';
+    }
 
-<script>
-  var submitted = false;
-  document.getElementById('silexForm').onsubmit = function() {
-    submitted = true;
-  };
-</script>
+    // Called when the hidden iframe loads after form submit
+    let firstLoad = true;
+    function iframeLoaded(){
+      // The iframe will also load once on page load; ignore that first load
+      if(firstLoad){ firstLoad = false; return; }
+
+      document.getElementById('submitting').style.display = 'none';
+      document.getElementById('thankyou').style.display = 'block';
+      // Reset form for convenience
+      document.getElementById('customForm').reset();
+    }
+
+    // Extra: prevent accidental multiple clicks
+    document.getElementById('customForm').addEventListener('submit', function(e){
+      const btn = this.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      setTimeout(()=>btn.disabled = false, 5000);
+    });
+  </script>
+</body>
+</html>
